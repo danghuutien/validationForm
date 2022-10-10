@@ -25,11 +25,31 @@ function Validator(options){
     const formElement = document.querySelector(options.form)
     if(formElement){
         formElement.onsubmit = (e)=>{
-            e.preventDefault()
-            options.rules.forEach((rule)=>{
-                const inputElement = formElement.querySelector(rule.selector)
-                validate(inputElement, rule)
-            })
+
+            if(typeof(options.onSubmit) == 'function'){
+
+                e.preventDefault()
+                options.rules.forEach((rule)=>{
+                    const inputElement = formElement.querySelector(rule.selector)
+                    validate(inputElement, rule)
+                })
+
+                let inputEables = document.querySelectorAll('input[name]')
+            
+                values = Array.from(inputEables).reduce((values, input)=>{
+                    // console.log(input)
+                    return  (values[input.name] = input.value)  && values
+                },{})
+
+                // console.log(values)
+
+
+
+                options.onSubmit(values)
+                // console.log(document.querySelectorAll('[name]'))
+            }
+
+            
                 
             
         }
@@ -91,13 +111,13 @@ Validator.minLength = (selector, minLength, message)=>{
 }
 
 
-    Validator.isConfirmed = function(selector, getConfirmValue, message) {
-        return {
-            selector,
-            test: function (value) {
-                return value === getConfirmValue() ? undefined : message || 'vui long nhap lai truong nay '
-            }
+Validator.isConfirmed = function(selector, getConfirmValue, message) {
+    return {
+        selector,
+        test: function (value) {
+            return value === getConfirmValue() ? undefined : message || 'vui long nhap lai truong nay '
         }
     }
+}
 
 

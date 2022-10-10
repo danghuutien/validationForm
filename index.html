@@ -11,7 +11,7 @@
     <div class="main">
         <form action="" method="POST" class ="form" id="form-1">
             <h2 class="heading">Thành Viên Đăng Ký</h2>
-            <p class="desc">Cùng nhau cày hết khóa học lập trình miễn phí tại F8 <3</p>
+            <!-- <p class="desc">Cùng nhau cày hết khóa học lập trình miễn phí tại F8 <3</p> -->
 
             <div class="spacer"></div>
 
@@ -57,7 +57,14 @@
                 Validator.isConfirmed('#password_confirmation', function () {
                     return document.querySelector('#form-1 #password').value; 
                 }, 'Mật khẩu nhập lại không chính xác !')
-            ]
+            ], 
+            onSubmit: (data)=>{
+                console.log(data)
+            }
+
+            
+
+            
         });
     </script>
 </body>
